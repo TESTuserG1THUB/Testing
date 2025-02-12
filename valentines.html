@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: pink;
+            font-family: 'Courier New', cursive;
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        h1 {
+            color: red;
+            font-size: 36px;
+            font-weight: bold;
+        }
+        
+        .buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+        
+        button {
+            padding: 15px 30px;
+            font-size: 22px;
+            border: none;
+            cursor: pointer;
+            border-radius: 15px;
+            transition: transform 0.2s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .yes {
+            background-color: #ff4d4d;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 5px 10px rgba(255, 77, 77, 0.5);
+        }
+        
+        .yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(255, 77, 77, 0.7);
+        }
+        
+        .no {
+            background-color: #333;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+            position: absolute;
+            right: 0;
+        }
+        
+        .no:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);
+        }
+        
+        .image-frame {
+            position: absolute;
+            top: 50%;
+            left: calc(50% + 640px);
+            transform: translateY(-50%);
+            width: 500px;
+            height: 500px;
+            border: 5px solid white;
+            border-radius: 15px 15px 5px 5px;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+        
+        .left-image-frame {
+            position: absolute;
+            top: 50%;
+            left: calc(32% - 640px);
+            transform: translateY(-50%);
+            width: 500px;
+            height: 500px;
+            border: 5px solid white;
+            border-radius: 15px 15px 5px 5px;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+        
+        .envelope {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1200px;
+            height: 900px;
+            background: red;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 10px solid #b30000;
+        }
+        
+        .message {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            background: white;
+            padding: 80px;
+            border-radius: 20px;
+            text-align: center;
+            transition: top 0.5s ease-in-out;
+            font-family: 'Lucida Handwriting', cursive;
+            font-size: 30px;
+        }
+        
+        .envelope.open .message {
+            top: 15%;
+        }
+    </style>
+</head>
+
+<body>
+    <audio id="backgroundMusic" loop>
+        <source src="music.mp3" type="audio/mp3">
+        <source src="your-audio-file.ogg" type="audio/ogg">
+        Your browser does not support the audio element.
+    </audio>
+    <div class="container">
+        <h1>Will you be my Valentine’s date? 💕</h1>
+        <div class="buttons">
+            <button class="yes" onclick="openEnvelope(); playAudio()">Yes</button>
+            <button class="no" onmouseover="moveButton()">No</button>
+        </div>
+    </div>
+
+    <div class="image-frame" id="imageFrame"></div>
+    <div class="left-image-frame" id="leftImageFrame"></div>
+    <div class="envelope" id="envelope">
+        <div class="message">
+            <p><strong>Hello, Wabby! ❤️</strong></p>
+            <p>Remember when you said you still wanted to be asked on a Valentine’s date, even though we're already in a relationship? Well, here I am, officially asking you to be my Valentine.</p>
+            <p>I know you've been stressed and exhausted lately, so I hope this invitation cheers you up and lifts your spirits. I want you to know that I'm so proud of you and everything you've achieved. Always remember that I'm here, rooting for you.</p>
+            <p>💖🌹</p>
+        </div>
+    </div>
+
+    <script>
+        let images = ["firstb.gif", "kissfemale.gif", "inlovef.gif", "makingf.gif", "wowf.gif", "tapf.gif", "dropfemale.gif", "runf.gif", "cute2.gif", "cute1.gif", "cute10.gif", ];
+        let images1 = ["cute7.gif", "first.gif", "kissmale.gif", "inlove.gif", "makingm.gif", "wowm.gif", "tapm.gif", "maledrop.gif", "runm.gif", "cute9.gif", "cute4.gif", ];
+        let currentImageIndex = 0;
+
+        function openEnvelope() {
+            document.getElementById("envelope").style.display = "block";
+            document.getElementById("imageFrame").style.display = "block";
+            document.getElementById("leftImageFrame").style.display = "block";
+            setTimeout(() => {
+                document.getElementById("envelope").classList.add("open");
+            }, 100);
+            setInterval(() => {
+                document.getElementById("imageFrame").style.backgroundImage = `url(${images[currentImageIndex]})`;
+                document.getElementById("leftImageFrame").style.backgroundImage = `url(${images1[(currentImageIndex + 1) % images.length]})`;
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+            }, 2000);
+        }
+
+        function moveButton() {
+            let noButton = document.querySelector('.no');
+            let x = Math.random() * 600 - 300;
+            let y = Math.random() * 600 - 300;
+            noButton.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        function playAudio() {
+            let audio = document.getElementById('backgroundMusic');
+            audio.play();
+        }
+    </script>
+</body>
+
+</html>
